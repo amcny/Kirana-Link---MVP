@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -29,17 +30,52 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => const HomeScreenWidget(),
+      errorBuilder: (context, state) => const NavBarPage(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const HomeScreenWidget(),
+          builder: (context, _) => const NavBarPage(),
         ),
         FFRoute(
           name: 'homeScreen',
           path: '/homeScreen',
-          builder: (context, params) => const HomeScreenWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'homeScreen')
+              : const NavBarPage(
+                  initialPage: 'homeScreen',
+                  page: HomeScreenWidget(),
+                ),
+        ),
+        FFRoute(
+          name: 'exploreScreen',
+          path: '/exploreScreen',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'exploreScreen')
+              : const NavBarPage(
+                  initialPage: 'exploreScreen',
+                  page: ExploreScreenWidget(),
+                ),
+        ),
+        FFRoute(
+          name: 'cartScreen',
+          path: '/cartScreen',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'cartScreen')
+              : const NavBarPage(
+                  initialPage: 'cartScreen',
+                  page: CartScreenWidget(),
+                ),
+        ),
+        FFRoute(
+          name: 'orderScreen',
+          path: '/orderScreen',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'orderScreen')
+              : const NavBarPage(
+                  initialPage: 'orderScreen',
+                  page: OrderScreenWidget(),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
